@@ -1,10 +1,12 @@
 const mongoose = require('mongoose')
 
-const boardSchema = new mongoose.Schema({ 
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    }
+const boardSchema = new mongoose.Schema({
+  boards: [String],
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  }
 })
 
 boardSchema.set('toJSON', {
@@ -15,6 +17,4 @@ boardSchema.set('toJSON', {
   }
 })
 
-const Board = mongoose.model('Board', boardSchema)
-
-module.exports = Board
+module.exports = mongoose.model('Board', boardSchema)
