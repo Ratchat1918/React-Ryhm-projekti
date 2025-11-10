@@ -1,10 +1,19 @@
+const jwt = require('jsonwebtoken')
 const Board = require('../models/board')
 const boardsRouter = require('express').Router()
 const User = require('../models/user')
 
+const getTokenFrom = (request) => {
+  const authorization = request.get('authorization')
+  if (authorization && authorization.startsWith('Bearer ')) {
+    return authorization.replace('Bearer ', '')
+  }
+  return null
+}
+
 boardsRouter.get('/', async (request, response) => {
   try {
-    const boards = await Board.find({})
+    const boards = await Board.find({}).populate('user', { username: 1, name: 1 })
     response.json(boards)
   } catch (error) {
     console.error(error)
@@ -13,20 +22,29 @@ boardsRouter.get('/', async (request, response) => {
 })
 
 boardsRouter.get('/:id', async (request, response) => {
-  const board = await Board.findById(request.params.id)
-  if (board) {
+  try {
+    const board = await Board.findById(request.params.id).populate('user', { username: 1, name: 1 })
+    if (!board) {
+      return response.status(404).end()
+    }
     response.json(board)
-  } else {
-    response.status(404).end()
+  } catch (error) {
+    console.error(error)
+    response.status(500).json({ error: 'server error' })
   }
 })
 
 boardsRouter.post('/', async (request, response) => {
-  const { boards, userId } = request.body
+  const { boards } = request.body
 
-  const user = await User.findById(userId)
+  const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
+  if (!decodedToken.id) {
+    return response.status(401).json({ error: 'token invalid' })
+  }
+  const user = await User.findById(decodedToken.id)
+
   if (!user) {
-    return response.status(400).json({ error: 'userId missing or not valid' })
+    return response.status(400).json({ error: 'user not found' })
   }
 
   const board = new Board({
@@ -35,7 +53,6 @@ boardsRouter.post('/', async (request, response) => {
   })
 
   const savedBoard = await board.save()
-
   user.boards = user.boards.concat(savedBoard._id)
   await user.save()
 
