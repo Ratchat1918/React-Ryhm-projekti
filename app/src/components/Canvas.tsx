@@ -49,7 +49,7 @@ const Canvas = (props)=>{
             <canvas ref={reference} {...props}></canvas>
             <input value={brushColour} onChange={(event)=>setBrushColour(event.target.value)} type="color"></input>
             <button onClick={() => resetBoard()}>Reset Board</button>
-            <button onClick={()=>getUsers()}>Save Board</button>
+            <button onClick={()=>postBoard()}>Save Board</button>
         </div>
     )
 }
