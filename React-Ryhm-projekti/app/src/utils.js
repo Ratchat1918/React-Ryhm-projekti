@@ -1,27 +1,64 @@
-import axios from 'axios'
+import axios from "axios";
 
-const api = axios.create({
-  baseURL: import.meta.env.PROD ? '' : 'http://localhost:3001'
-})
-
-const notesUrl = '/api/notes'
-const usersUrl = '/api/users'
-const boardsUrl = '/api/boards'
-
-const getAllNotes = () => api.get(notesUrl).then(res => res.data)
-const getUsers = () => api.get(usersUrl).then(res => res.data)
-
-const postUser = (userInfo) =>
-  api.post(usersUrl, userInfo).then(res => res.data)
-
-const postBoard = (boardInfo, token) => {
-  const config = { headers: { Authorization: `Bearer ${token}` } }
-  return api.post(boardsUrl, boardInfo, config).then(res => res.data)
+const getBoards =()=>{
+    return axios.get('/api/boards/')
+    .then(response=>{
+        return response.data
+    }).catch(error=>{
+        console.log('Error fetching data')
+    })
 }
 
-export default {
-  getAllNotes,
-  getUsers,
-  postUser,
-  postBoard
+const postBoard = (boardInfo) =>{
+    let userData = localStorage.getItem('loggedIn');
+    userData = JSON.parse(userData);
+
+    const token = userData.token
+    const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    };
+    console.log(token)
+    axios.post('/api/boards/', 
+        {boards:boardInfo}, 
+        config
+    ).then(response => {
+        console.log('Data posted successfully:', response.data);
+    })
+    .catch(error => {
+        console.error('Error posting data:', error);
+    });
+}
+
+const getUsers =()=>{
+    axios.get('/api/users/')
+    .then(response=>{
+        return response.data
+    }).catch(error=>{
+        console.log('Erroe fetching data')
+    })
+}
+
+const postUser = (userInfo) => {
+  return axios.post('/api/users', userInfo)
+    .then(response => {
+      console.log('User created:', response.data);
+      return response.data;
+    })
+    .catch(error => {
+      console.error('Error posting user:', error.response?.data || error.message);
+      throw error;
+    });
+}
+
+const logIn = async credentials => {
+  const response = await axios.post('/api/login', credentials)
+  return response.data
+}
+
+export {
+    getBoards,
+    postBoard,
+    postUser,
+    getUsers,
+    logIn,
 }
