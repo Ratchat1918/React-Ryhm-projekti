@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "render-build": "npm install --prefix app && npm run build --prefix app && npm install --prefix backend"
+  }
+}
