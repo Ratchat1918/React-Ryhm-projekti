@@ -15,7 +15,7 @@ const Canvas = (props)=>{
     
     const resetBoard =()=>{
         console.log('reset')
-        blocks=boardInfo  
+        window.location.reload();
     }
 
     useEffect(() => {
