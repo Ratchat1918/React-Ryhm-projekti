@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const getBoards =()=>{
-    return axios.get('http://localhost:3001/api/boards/')
+    return axios.get('/api/boards/')
     .then(response=>{
         return response.data
     }).catch(error=>{
@@ -18,7 +18,7 @@ const postBoard = (boardInfo) =>{
         headers: { Authorization: `Bearer ${token}` }
     };
     console.log(token)
-    axios.post('http://localhost:3001/api/boards/', 
+    axios.post('/api/boards/', 
         {boards:boardInfo}, 
         config
     ).then(response => {
@@ -30,7 +30,7 @@ const postBoard = (boardInfo) =>{
 }
 
 const getUsers =()=>{
-    axios.get('http://localhost:3001/api/users/')
+    axios.get('/api/users/')
     .then(response=>{
         return response.data
     }).catch(error=>{
@@ -39,7 +39,7 @@ const getUsers =()=>{
 }
 
 const postUser = (userInfo) =>{
-    axios.post('http://localhost:3001/api/users/',{
+    axios.post('/api/users/',{
         board:boardInfo
     }).then(response => {
         console.log('Data posted successfully:', response.data);
@@ -50,7 +50,7 @@ const postUser = (userInfo) =>{
 }
 
 const logIn = async credentials => {
-  const response = await axios.post('http://localhost:3001/api/login', credentials)
+  const response = await axios.post('/api/login', credentials)
   return response.data
 }
 
