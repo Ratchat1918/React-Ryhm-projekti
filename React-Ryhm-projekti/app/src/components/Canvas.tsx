@@ -53,4 +53,5 @@ const Canvas = (props)=>{
         </div>
     )
 }
+
 export default Canvas
