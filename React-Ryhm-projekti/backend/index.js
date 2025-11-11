@@ -13,6 +13,7 @@ const boardsRouter = require('./controllers/boards')
 // Middleware
 app.use(cors())
 app.use(express.json())
+app.use(express.static('dist'))
 
 // API-reitit
 app.use('/api/users', usersRouter)
