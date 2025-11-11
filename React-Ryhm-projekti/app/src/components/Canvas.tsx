@@ -15,7 +15,7 @@ const Canvas = (props)=>{
     
     const resetBoard =()=>{
         console.log('reset')
-        blocks=boardInfo  
+        window.location.reload();
     }
 
     useEffect(() => {
@@ -53,4 +53,5 @@ const Canvas = (props)=>{
         </div>
     )
 }
+
 export default Canvas
