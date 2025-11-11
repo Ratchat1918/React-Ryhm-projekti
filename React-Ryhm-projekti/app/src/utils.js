@@ -38,14 +38,15 @@ const getUsers =()=>{
     })
 }
 
-const postUser = (userInfo) =>{
-    axios.post('/api/users/',{
-        board:boardInfo
-    }).then(response => {
-        console.log('Data posted successfully:', response.data);
+const postUser = (userInfo) => {
+  return axios.post('/api/users', userInfo)
+    .then(response => {
+      console.log('User created:', response.data);
+      return response.data;
     })
     .catch(error => {
-        console.error('Error posting data:', error);
+      console.error('Error posting user:', error.response?.data || error.message);
+      throw error;
     });
 }
 
