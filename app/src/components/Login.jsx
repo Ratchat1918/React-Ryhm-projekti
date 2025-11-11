@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import loginService from '../services/login'
+import { logIn } from "../utils";
 import { useNavigate } from "react-router-dom";
-
 
 export default function LoginForm({ onLogin }) {
   const [username, setUsername] = useState("");
@@ -9,12 +8,11 @@ export default function LoginForm({ onLogin }) {
   const [user, setUser] = useState(null)
   const navigate = useNavigate();
 
-
   const handleLogin = async event => {
     event.preventDefault()
 
     try {
-      const user = await loginService.login({ username, password })
+      const user = await logIn({ username, password })
       onLogin(user);
       setUser(user)
       setUsername('')
@@ -66,5 +64,4 @@ export default function LoginForm({ onLogin }) {
         )}
     </div>
     );
-
 }
