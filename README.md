@@ -1,3 +1,5 @@
+https://react-ryhm-projekti-sc2h.onrender.com/
+
 1) Lataa tiedostoja
 2) cd backend
 3) npm install
