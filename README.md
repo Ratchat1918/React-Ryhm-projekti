@@ -6,6 +6,7 @@
 PORT=3001
 SECRET=secretkey
 SECRET=secretkey
-5) npm start
-6) http://localhost:3001 // BACKEND
-7) http://localhost:5173 // FRONTEND
+5) npm start // BACKEND
+6) npm run dev // FRONTEND
+7) http://localhost:3001 // BACKEND
+8) http://localhost:5173 // FRONTEND
