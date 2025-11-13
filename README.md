@@ -10,3 +10,6 @@ SECRET=secretkey
 6) npm run dev // FRONTEND
 7) http://localhost:3001 // BACKEND
 8) http://localhost:5173 // FRONTEND
+
+
+ei ole github pages
