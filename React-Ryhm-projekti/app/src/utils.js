@@ -1,11 +1,15 @@
 import axios from "axios";
 
+const boardUrl = "/api/boards"
+const userUrl = "/api/users"
+const loginUrl = "/api/login"
+
 const getBoards =()=>{
-    return axios.get('/api/boards/')
+    return axios.get(boardUrl)
     .then(response=>{
         return response.data
     }).catch(error=>{
-        console.log('Error fetching data')
+        console.log('Error fetching data', error)
     })
 }
 
@@ -18,7 +22,7 @@ const postBoard = (boardInfo) =>{
         headers: { Authorization: `Bearer ${token}` }
     };
     console.log(token)
-    axios.post('/api/boards/', 
+    axios.post(boardUrl,
         {boards:boardInfo}, 
         config
     ).then(response => {
@@ -30,16 +34,16 @@ const postBoard = (boardInfo) =>{
 }
 
 const getUsers =()=>{
-    axios.get('/api/users/')
+    axios.get(userUrl)
     .then(response=>{
         return response.data
     }).catch(error=>{
-        console.log('Erroe fetching data')
+        console.log('Erroe fetching data', error)
     })
 }
 
 const postUser = (userInfo) => {
-  return axios.post('/api/users', userInfo)
+  return axios.post(userUrl, userInfo)
     .then(response => {
       console.log('User created:', response.data);
       return response.data;
@@ -51,7 +55,7 @@ const postUser = (userInfo) => {
 }
 
 const logIn = async credentials => {
-  const response = await axios.post('/api/login', credentials)
+  const response = await axios.post(loginUrl, credentials)
   return response.data
 }
 

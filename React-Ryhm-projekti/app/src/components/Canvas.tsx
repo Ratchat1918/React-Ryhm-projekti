@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react"
 import { boardInfo } from "../board";
 import { postBoard } from "../utils";
 const Canvas = (props)=>{ 
+    const [message, setMessage] = useState("");
     const reference=useRef(null);
     const [brushColour, setBrushColour] = useState("#000000")
     let blocks = boardInfo;
@@ -49,7 +50,8 @@ const Canvas = (props)=>{
             <canvas ref={reference} {...props}></canvas>
             <input value={brushColour} onChange={(event)=>setBrushColour(event.target.value)} type="color"></input>
             <button onClick={() => resetBoard()}>Reset Board</button>
-            <button onClick={()=>postBoard(reference.current.toDataURL())}>Save Board</button>
+            <button onClick={() => (setMessage("Postaaminen onnistui! Board tallennettu Galleryyn"), setTimeout(() => window.location.reload(), 3000))}>Save Board</button>
+            {message && <div style={{ marginTop: 20, fontWeight: "bold" }}>{message}</div>}
         </div>
     )
 }
