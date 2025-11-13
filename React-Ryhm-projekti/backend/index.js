@@ -21,7 +21,7 @@ app.use('/api/login', loginRouter)
 app.use('/api/boards', boardsRouter)
 
 // React buildin sijainti
-const buildPath = path.join(__dirname, '../app/dist')
+const buildPath = path.join(__dirname, './dist')
 app.use(express.static(buildPath))
 
 // Kaikki muut kuin /api/* → React
