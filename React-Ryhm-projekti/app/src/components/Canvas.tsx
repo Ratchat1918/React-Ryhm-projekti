@@ -22,7 +22,7 @@ const Canvas = (props)=>{
         var imgUrl = reference.current.toDataURL()
         postBoard(imgUrl)
         setMessage("Postaaminen onnistui! Board tallennettu Galleryyn")
-        setTimeout(() => window.location.reload(), 3000)
+        setTimeout(() => window.location.reload(), 10000)
     } 
 
     useEffect(() => {
@@ -63,3 +63,4 @@ const Canvas = (props)=>{
 }
 
 export default Canvas
+
