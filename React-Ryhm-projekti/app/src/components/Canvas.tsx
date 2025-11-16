@@ -18,6 +18,12 @@ const Canvas = (props)=>{
         console.log('reset')
         window.location.reload();
     }
+    const sendToGallery = (reference)=>{
+        var imgUrl = reference.current.toDataURL()
+        postBoard(imgUrl)
+        setMessage("Postaaminen onnistui! Board tallennettu Galleryyn")
+        setTimeout(() => window.location.reload(), 3000)
+    } 
 
     useEffect(() => {
         const canvas = reference.current;
@@ -50,11 +56,10 @@ const Canvas = (props)=>{
             <canvas ref={reference} {...props}></canvas>
             <input value={brushColour} onChange={(event)=>setBrushColour(event.target.value)} type="color"></input>
             <button onClick={() => resetBoard()}>Reset Board</button>
-            <button onClick={() => (setMessage("Postaaminen onnistui! Board tallennettu Galleryyn"), setTimeout(() => window.location.reload(), 3000))}>Save Board</button>
+            <button onClick={() => sendToGallery(reference)}>Save Board</button>
             {message && <div style={{ marginTop: 20, fontWeight: "bold" }}>{message}</div>}
         </div>
     )
 }
 
 export default Canvas
-
